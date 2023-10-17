@@ -62,6 +62,7 @@ public:
             createArrCheck(racerArr, typeR, distance);
         }
         else if (t == 2 && count >= 2) {
+            return;
         }
         else {
             std::cout << "Попытка выбрать неправильный тип" << std::endl;
@@ -94,6 +95,9 @@ public:
         case 7:
             return str = "Метла";
             break;
+        default:
+            return str = "Что-то пошло не так";
+            break;
         }
     }
     
@@ -110,7 +114,11 @@ public:
         case 3:
             std::cout << "Гонка для наземного ивоздушного транспорта. ";
             break;
+        default:
+            std::cout << "Что-то пошло не так!";
+            break;
         }
+
         std::cout << "Расстояние: " << distance << std::endl;
 
         for (int i = 0; i < 8; i++) {
@@ -122,7 +130,7 @@ public:
                 break;
             }
         }
-
+        
         for (int i = 0; i < 8; i++) {
             if (racerArr[i] == 0) {
                 break;
@@ -132,7 +140,7 @@ public:
             }
             std::cout << ", ";
         }
-
+        
         for (int i = 0; i < 8; i++) {
             if (racerArr[i] == 0) {
                 break;
@@ -142,7 +150,7 @@ public:
                 break;
             }
         }
-
+        
         std::cout << "1. Верблюд\n" <<
             "2. Верблюд-быстроход\n" <<
             "3. Кентавр\n" <<
@@ -152,19 +160,22 @@ public:
             "7. Метла\n" <<
             "0. Закончить регистрацию\n" <<
             "Выберите транспортное средство или 0 для окончания регистрации:";
+        
         int c;
         std::cin >> c;
-
+        
         if (c == 0) {
             set_registration_menu(racerArr, typeR, distance);
             return racerArr;
         }
         else if ((typeR == 1 && (c == 5 || c == 6 || c == 7)) || (typeR == 2 && (c == 1 || c == 2 || c == 3 || c == 4)) || (c < 0 || c >= 8) ) {
             std::cout << "Попытка зарегистрировать неправильный тип транспортного средства " << std::endl;
-            createArrCheck(racerArr, typeR, distance);
+            return createArrCheck(racerArr, typeR, distance);
+            
         }
         else {
             bool exists;
+
             for (int i = 0; i < 8; i++) {
                 if (racerArr[i] == c) {
                     exists = false;
@@ -174,6 +185,7 @@ public:
                     exists = true;
                 }
             }
+            
             if (exists) {
                 for (int i = 0; i < 8; i++) {
                     if (racerArr[i] == 0) {
@@ -182,11 +194,14 @@ public:
                         break;
                     }
                 }
-                createArrCheck(racerArr, typeR, distance);
+                return createArrCheck(racerArr, typeR, distance);
+                
+                
             }
             else {
                 std::cout << tell_who(c) << " уже зарегистрирован!" << std::endl;
-                createArrCheck(racerArr, typeR, distance);
+                return createArrCheck(racerArr, typeR, distance);
+                
             }
         }
     }
@@ -241,31 +256,31 @@ int main()
             switch (k)
             {
             case 1:
-                result.at(i).name = "Верблюд";
+                result.at(i).name = "Верблюд. Время: ";
                 result.at(i).time = camal.start_race();
                 break;
             case 2:
-                result.at(i).name = "Верблюд-быстроход";
+                result.at(i).name = "Верблюд-быстроход. Время:";
                 result.at(i).time = camal_Fast.start_race();
                 break;
             case 3:
-                result.at(i).name = "Кентавр";
+                result.at(i).name = "Кентавр. Время:";
                 result.at(i).time = centour.start_race();
                 break;
             case 4:
-                result.at(i).name = "Ботинки-вездеходы";
+                result.at(i).name = "Ботинки-вездеходы. Время:";
                 result.at(i).time = boots.start_race();
                 break;
             case 5:
-                result.at(i).name = "Ковер-самолет";
+                result.at(i).name = "Ковер-самолет. Время:";
                 result.at(i).time = carpet.start_race();
                 break;
             case 6:
-                result.at(i).name = "Орел";
+                result.at(i).name = "Орел. Время:";
                 result.at(i).time = eagle.start_race();
                 break;
             case 7:
-                result.at(i).name = "Метла";
+                result.at(i).name = "Метла. Время:";
                 result.at(i).time = broomstick.start_race();
                 break;
             default:
